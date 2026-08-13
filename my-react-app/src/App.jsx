@@ -1,24 +1,15 @@
-import React from "react";
-import {useState} from "react";
+import Counter from '../src/components/Counter';
 
-function App() {
-  const [count, setCount] = useState(0);
-
-  const increment = ()=>{
-    setCount(count + 1);
-  }
-  const decrement = ()=>{
-    setCount(count - 1);
-  }
-
-  return(
+function App(){
+  return (
     <div>
-      <h1>Counter App</h1>
-      <h2>Count: {count}</h2>
-      <button onClick={increment}>Increment</button>
-      <button onClick={decrement}>Decrement</button>
+      <h1>Welcome to the Counter App </h1>
+      <Counter />
+      <Counter title="count 1" />
+      <Counter title="count 2" />
+      <Counter title="count 3" />
     </div>
-
   )
 }
+
 export default App;
