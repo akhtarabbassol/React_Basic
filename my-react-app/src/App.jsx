@@ -16,6 +16,9 @@
 
  import ProfilePage from "./pages/ProfilePage";
 import TodoPage from "./pages/TodoPage";
+import ProductPage from "./pages/ProductPage";
+import "./app.css"
+ 
 
 function App() {
 
@@ -26,7 +29,11 @@ function App() {
 
       <hr /> */}
 
-      <TodoPage />
+      {/* <TodoPage />
+
+      <hr /> */}
+
+      <ProductPage />
 
     </div>
   );
