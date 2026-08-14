@@ -14,28 +14,22 @@
 
 // export default App;
 
+ import ProfilePage from "./pages/ProfilePage";
+import TodoPage from "./pages/TodoPage";
 
-import ProfileCard from './components/ProfileCard';
-import profiles from './data/profiles';
+function App() {
 
-function App(){
-  return(
-    <div className="app">
-      <h1>ours Teams</h1>
-      {
-        profiles.map((profile)=>(
-          <ProfileCard 
-            key={profile.id}
-            name={profile.name}
-            email={profile.email}
-            role={profile.role}
-            image={profile.image}
-            skills={profile.skills}
-          />
-        ))
-      }
+  return (
+    <div>
+
+      {/* <ProfilePage />
+
+      <hr /> */}
+
+      <TodoPage />
+
     </div>
-  )
+  );
 }
 
 export default App;
