@@ -1,6 +1,11 @@
 // import { createContext, useContext, useState } from "react";
 
+// const CartContext = createContext();
+
 // export const CartProvider = ({ children }) => {
+//   const [cart, setCart] = useState([]);
+
+//   // Add product to cart
 //   const addToCart = (product) => {
 //     setCart((prevCart) => {
 //       const existingProduct = prevCart.find(
