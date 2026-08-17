@@ -14,22 +14,68 @@
 
 // export default App;
 
- import ProfilePage from "./pages/ProfilePage";
-import TodoPage from "./pages/TodoPage";
+//  import Header from "./components/Cart/Header";
 
-function App() {
+// import ProductPage from "./pages/ProductPage";
 
+// import CartPage from "./pages/CartPage";
+
+// import { CartProvider } from "./context/CartContext";
+
+// import "./App.css";
+
+
+// function App() {   
+
+//   return (
+
+//     <CartProvider>
+
+//       <div className="app">
+
+//         <Header />
+
+//         <ProductPage />
+
+//         <CartPage />
+
+//       </div>
+
+//     </CartProvider>
+
+//   );
+
+// }
+
+
+// export default App;
+ 
+
+
+
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Header from "./components/Cart/Header";
+import ProductPage from "./pages/CartPage";
+import Cart from "./pages/ProductPage";
+
+const App = () => {
   return (
-    <div>
+    <BrowserRouter>
 
-      {/* <ProfilePage />
+      <Header />
 
-      <hr /> */}
+      <Routes>
 
-      <TodoPage />
+        <Route path="/" element={<ProductPage />}/>
 
-    </div>
+        <Route path="/cart" element={<Cart />}/>
+
+      </Routes>
+
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

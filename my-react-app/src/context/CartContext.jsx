@@ -1,172 +1,227 @@
-import { createContext,useContext,useState} from "react";
+// import { createContext, useContext, useState } from "react";
 
-// CREATE CONTEXT
+// export const CartProvider = ({ children }) => {
+//   const addToCart = (product) => {
+//     setCart((prevCart) => {
+//       const existingProduct = prevCart.find(
+//         (item) => item.id === product.id
+//       );
+
+//       if (existingProduct) {
+//         return prevCart.map((item) =>
+//           item.id === product.id
+//             ? { ...item, quantity: item.quantity + 1 }
+//             : item
+//         );
+//       }
+
+//       return [
+//         ...prevCart,
+//         {
+//           ...product,
+//           quantity: 1,
+//         },
+//       ];
+//     });
+//   };
+
+//   // Increase quantity
+//   const increaseQuantity = (id) => {
+//     setCart((prevCart) =>
+//       prevCart.map((item) =>
+//         item.id === id
+//           ? { ...item, quantity: item.quantity + 1 }
+//           : item
+//       )
+//     );
+//   };
+
+//   // Decrease quantity
+//   const decreaseQuantity = (id) => {
+//     setCart((prevCart) =>
+//       prevCart
+//         .map((item) =>
+//           item.id === id
+//             ? { ...item, quantity: item.quantity - 1 }
+//             : item
+//         )
+//         .filter((item) => item.quantity > 0)
+//     );
+//   };
+
+//   // Remove product
+//   const removeFromCart = (id) => {
+//     setCart((prevCart) =>
+//       prevCart.filter((item) => item.id !== id)
+//     );
+//   };
+
+//   // Total number of products
+//   const cartItemCount = cart.reduce(
+//     (total, item) => total + item.quantity,
+//     0
+//   );
+
+//   // Subtotal
+//   const subtotal = cart.reduce(
+//     (total, item) => total + item.price * item.quantity,
+//     0
+//   );
+
+//   // Total
+//   const total = subtotal;
+
+//   return (
+//     <CartContext.Provider
+//       value={{
+//         cart,
+//         addToCart,
+//         increaseQuantity,
+//         decreaseQuantity,
+//         removeFromCart,
+//         cartItemCount,
+//         subtotal,
+//         total,
+//       }}
+//     >
+//       {children}
+//     </CartContext.Provider>
+//   );
+// };
+
+// export const useCart = () => {
+//   return useContext(CartContext);
+// };
+
+
+import { createContext, useContext, useState } from "react";
+
 const CartContext = createContext();
- 
-// CART PROVIDER
-export function CartProvider({ children }) {
 
+export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
 
-  // ADD TO CART
+  // =========================
+  // ADD PRODUCT TO CART
+  // =========================
+
   const addToCart = (product) => {
-
     setCart((previousCart) => {
-
-      const existingProduct = previousCart.find( (item) => item.id === product.id );
-
+      const existingProduct = previousCart.find(
+        (item) => item.id === product.id
+      );
 
       // Product already exists
       if (existingProduct) {
-
-        return previousCart.map((item) => {
-
-          if (item.id === product.id) {
-
-            return {
-              ...item,
-              quantity: item.quantity + 1
-            };
-
-          }
-
-          return item;
-
-        });
-
+        return previousCart.map((item) =>
+          item.id === product.id
+            ? {
+                ...item,
+                quantity: item.quantity + 1,
+              }
+            : item
+        );
       }
-
 
       // New product
       return [
         ...previousCart,
         {
           ...product,
-          quantity: 1
-        }
+          quantity: 1,
+        },
       ];
-
     });
-
   };
- 
+
+  // =========================
   // INCREASE QUANTITY
+  // =========================
+
   const increaseQuantity = (id) => {
-
-    setCart((previousCart) => {
-
-      return previousCart.map((item) => {
-
-        if (item.id === id) {
-
-          return {
-            ...item,
-            quantity: item.quantity + 1
-          };
-
-        }
-
-        return item;
-
-      });
-
-    });
-
+    setCart((previousCart) =>
+      previousCart.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item
+      )
+    );
   };
 
- 
+  // =========================
   // DECREASE QUANTITY
+  // =========================
+
   const decreaseQuantity = (id) => {
-
-    setCart((previousCart) => {
-
-      return previousCart.map((item) => {
-
-        if (item.id === id) {
-
-          return {
-            ...item,
-            quantity:
-              item.quantity > 1
-                ? item.quantity - 1
-                : 1
-          };
-
-        }
-
-        return item;
-
-      });
-
-    });
-
+    setCart((previousCart) =>
+      previousCart.map((item) =>
+        item.id === id && item.quantity > 1
+          ? {
+              ...item,
+              quantity: item.quantity - 1,
+            }
+          : item
+      )
+    );
   };
 
+  // =========================
+  // REMOVE PRODUCT
+  // =========================
 
-   
-  // REMOVE FROM CART
   const removeFromCart = (id) => {
-
-    setCart((previousCart) => {
-
-      return previousCart.filter(
-        (item) => item.id !== id
-      );
-
-    });
-
+    setCart((previousCart) =>
+      previousCart.filter((item) => item.id !== id)
+    );
   };
 
-
- 
+  // =========================
   // CART ITEM COUNT
+  // =========================
+
   const cartItemCount = cart.reduce(
-    (total, item) => {
-      return total + item.quantity;
-    },
+    (total, item) => total + item.quantity,
     0
   );
 
-
-  
+  // =========================
   // SUBTOTAL
+  // =========================
+
   const subtotal = cart.reduce(
-    (total, item) => {
-
-      return total + (
-        item.price * item.quantity
-      );
-
-    },
+    (total, item) =>
+      total + item.price * item.quantity,
     0
   );
 
-
- 
+  // =========================
   // TOTAL
+  // =========================
+
   const total = subtotal;
 
-
- 
-  // PROVIDER
   return (
-
     <CartContext.Provider
-      value={{ cart,addToCart,increaseQuantity,decreaseQuantity,removeFromCart,cartItemCount,subtotal,total}}>
-
+      value={{
+        cart,
+        addToCart,
+        increaseQuantity,
+        decreaseQuantity,
+        removeFromCart,
+        cartItemCount,
+        subtotal,
+        total,
+      }}
+    >
       {children}
-
     </CartContext.Provider>
-
   );
+};
 
-}
-
-// CUSTOM HOOK
- 
-
-export function useCart() {
-
+// Custom Hook
+export const useCart = () => {
   return useContext(CartContext);
-
-}
+};

@@ -1,39 +1,29 @@
+
+
+import { Link } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 
-
-function Header() {
-
-  const {cartItemCount} = useCart();
-
+const Header = () => {
+  const { cartItemCount } = useCart();
 
   return (
-
     <header className="header">
+      <div className="logo">
+        <Link to="/">My Shop</Link>
+      </div>
 
-      <div className="header-container">
+      <nav>
+        <Link to="/">Home</Link>
 
-        <h2 className="logo">
-          My Shop
-        </h2>
-
-
-        <div className="cart-icon">
-
-          🛒
-
+        <Link to="/cart" className="cart-link">
+          🛒 Cart
           <span className="cart-count">
             {cartItemCount}
           </span>
-
-        </div>
-
-      </div>
-
+        </Link>
+      </nav>
     </header>
-
   );
-
-}
-
+};
 
 export default Header;

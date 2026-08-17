@@ -1,78 +1,131 @@
+// import { useCart } from "../../context/CartContext";
+
+// const CartItem = ({ item }) => {
+//   const {
+//     increaseQuantity,
+//     decreaseQuantity,
+//     removeFromCart,
+//   } = useCart();
+
+//   return (
+//     <div className="cart-item">
+
+//       <img
+//         src={item.image}
+//         alt={item.name}
+//         width="100"
+//       />
+
+//       <div>
+//         <h3>{item.name}</h3>
+
+//         <p>Rs. {item.price}</p>
+
+//         <div>
+//           <button
+//             onClick={() => decreaseQuantity(item.id)}
+//           >
+//             -
+//           </button>
+
+//           <span>{item.quantity}</span>
+
+//           <button
+//             onClick={() => increaseQuantity(item.id)}
+//           >
+//             +
+//           </button>
+//         </div>
+
+//         <p>
+//           Item Total: Rs.{" "}
+//           {item.price * item.quantity}
+//         </p>
+
+//         <button
+//           onClick={() => removeFromCart(item.id)}
+//         >
+//           Remove
+//         </button>
+//       </div>
+
+//     </div>
+//   );
+// };
+
+// export default CartItem;
+
+
+
+
+
 import { useCart } from "../../context/CartContext";
 
+const CartItem = ({ item }) => {
+  const {
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart,
+  } = useCart();
 
-function CartItem({ item }) {
-
-  const {increaseQuantity,decreaseQuantity,removeFromCart} = useCart();
-
+  const itemTotal = item.price * item.quantity;
 
   return (
-
     <div className="cart-item">
 
-      {/* Product Image */}
+      <img
+        src={item.image}
+        alt={item.name}
+      />
 
-      <img src={item.image}alt={item.name}className="cart-item-image"/>
+      <div className="cart-item-info">
 
-
-      {/* Product Details */}
-
-      <div className="cart-item-details">
-
-        <h3>
-          {item.name}
-        </h3>
+        <h2>{item.name}</h2>
 
         <p>
-          Rs. {item.price.toLocaleString()}
+          Price: Rs. {item.price}
         </p>
 
-      </div>
+        <div className="quantity-control">
 
+          <button
+            onClick={() =>
+              decreaseQuantity(item.id)
+            }
+          >
+            -
+          </button>
 
-      {/* Quantity */}
+          <span>
+            {item.quantity}
+          </span>
 
-      <div className="quantity-controls">
+          <button
+            onClick={() =>
+              increaseQuantity(item.id)
+            }
+          >
+            +
+          </button>
 
-        <button onClick={() => {decreaseQuantity(item.id);}}>
-          -
+        </div>
+
+        <p className="item-total">
+          Item Total: Rs. {itemTotal}
+        </p>
+
+        <button
+          onClick={() =>
+            removeFromCart(item.id)
+          }
+          className="remove-btn"
+        >
+          Remove
         </button>
 
-
-        <span>
-          {item.quantity}
-        </span>
-
-
-        <button onClick={() => {increaseQuantity(item.id); }}>
-          +
-        </button>
-
       </div>
-
-
-      {/* Item Total */}
-
-      <div className="item-total">
-
-        Rs.{" "}
-
-        {(item.price *item.quantity).toLocaleString()}
-
-      </div>
-
-
-      {/* Remove */}
-
-      <button className="remove-button" onClick={() => {removeFromCart(item.id);  }}>
-        Remove
-      </button>
-
     </div>
-
   );
-
-}
-
+};
 
 export default CartItem;
