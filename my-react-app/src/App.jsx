@@ -16,6 +16,8 @@
 
  import ProfilePage from "./pages/ProfilePage";
 import TodoPage from "./pages/TodoPage";
+import RegistrationPage from "./pages/RegistrationPage"
+import "./App.css";
 
 function App() {
 
@@ -26,7 +28,9 @@ function App() {
 
       <hr /> */}
 
-      <TodoPage />
+      {/* <TodoPage /> */}
+      <RegistrationPage/>
+      
 
     </div>
   );
