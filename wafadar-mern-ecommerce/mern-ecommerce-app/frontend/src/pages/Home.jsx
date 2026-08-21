@@ -1,0 +1,11 @@
+import React from 'react';
+import { useEffect, useState } from 'react';
+import { Search, ShieldCheck, Truck, Headphones } from 'lucide-react';
+import api from '../services/api';
+import ProductCard from '../components/ProductCard';
+export default function Home(){
+ const [products,setProducts]=useState([]),[search,setSearch]=useState(''),[category,setCategory]=useState('All'),[loading,setLoading]=useState(true);
+ const categories=['All','Electronics','Fashion','Sports','Home'];
+ useEffect(()=>{setLoading(true);api.get('/products',{params:{search,category}}).then(r=>setProducts(r.data)).finally(()=>setLoading(false));},[search,category]);
+ return <div><section className="hero"><div className="container hero-grid"><div><span className="eyebrow">SMART SHOPPING · SIMPLE EXPERIENCE</span><h1>Everything you need,<br/><em>all in one place.</em></h1><p>Discover quality products, secure checkout and easy order tracking in a clean modern store.</p><a className="btn btn-primary" href="#products">Explore Products</a></div><div className="hero-card"><div className="hero-orb">W</div><h3>Fast & reliable</h3><p>From product selection to delivery, your complete shopping journey is organized in one place.</p></div></div></section><section className="benefits container"><div><Truck/><b>Fast delivery</b><span>Reliable order handling</span></div><div><ShieldCheck/><b>Secure checkout</b><span>Protected authentication</span></div><div><Headphones/><b>Easy support</b><span>Order status visibility</span></div></section><section id="products" className="container shop"><div className="section-head"><div><span className="eyebrow">OUR COLLECTION</span><h2>Featured products</h2></div><div className="search-box"><Search size={18}/><input value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search products..."/></div></div><div className="filters">{categories.map(c=><button key={c} className={category===c?'active':''} onClick={()=>setCategory(c)}>{c}</button>)}</div>{loading?<div className="loading-grid">Loading products...</div>:<div className="product-grid">{products.map(p=><ProductCard key={p._id} product={p}/>)}</div>}{!loading&&!products.length&&<div className="empty">No products found.</div>}</section></div>;
+}

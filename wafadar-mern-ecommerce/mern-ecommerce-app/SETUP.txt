@@ -1,0 +1,1 @@
+Install Node.js 20+ and run npm install in backend and frontend.
